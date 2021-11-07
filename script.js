@@ -68,34 +68,53 @@ canvas.height = window.innerHeight;
 // ctx.arc(centerX + 160, centerY - 160, 40, 0, Math.PI*2)
 // ctx.stroke();
 
-const circle = {
-    x:200,
-    y:200,
-    size:30,
-    dx:5,
-    dy:6
+const car = {
+    x:0,
+    y:canvas.width/2,
+    speed:4,
+    width:50,
+    height:25,
 }
 
-function drawCircle() {
-    ctx.beginPath();
-    ctx.arc(circle.x, circle.y, circle.size, 0, Math.PI*2)
+const pedestrian = {
+    x: canvas.width - 50,
+    y: canvas.height / 2 + 100,
+    speed:1,
+    size: 6.25
+}
+
+function drawCar() {
+    ctx.fillRect(car.x, car.y, car.width, car.height)
     ctx.fillStyle = "purple"
     ctx.fill();
 }
 
+function drawPedestrian() {
+    ctx.beginPath();
+    ctx.arc(pedestrian.x, pedestrian.y, pedestrian.size, 0, Math.PI*2)
+    ctx.fill();
+}
+
+// TODO UpdateCar function that keeps car between walls
+
+// TODO UpdatePedestrian function that keeps pedestrian between walls
+
+// TODO draw scenery like road, sidewalk and grass
+
+// TODO add images for each item (car, pedestrian)
+
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
-    drawCircle();
-    circle.x += circle.dx;
-    circle.y += circle.dy;
+    drawCar();
+    drawPedestrian();
+    car.x += car.speed;
+    pedestrian.y -= pedestrian.speed;
 
     //detect side walls
-    if(circle.x + circle.size > canvas.width || circle.x - circle.size < 0) {
-        circle.dx *= -1;
+    if(car.x + car.width > canvas.width || car.x < 0) {
+        car.x = 0;
     }
-    if (circle.y + circle.size > canvas.height || circle.y - circle.size < 0) {
-        circle.dy *= -1;
-    }
+
     requestAnimationFrame(update);
 }
 
