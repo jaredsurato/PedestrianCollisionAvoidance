@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 * {
     box-sizing: border-box;
 }
@@ -31,56 +30,3 @@ hr {
   width: 75%;
   background-color: white;
 }
-=======
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-    margin: 0;
-}
-
-#canvas {
-    background: white;
-    border-radius: 5px;
-    width:80%;
-    height: auto;
-}
-
-#car, #pedestrian, #road {
-    display: none;
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-    margin: 0;
-}
-
-#canvas {
-    background: white;
-    border-radius: 5px;
-    width:80%;
-    height: auto;
-}
-
-#car, #pedestrian, #road {
-    display: none;
-}
->>>>>>> cc31eecbf66b06907574b945c640f6b2ce99823f
