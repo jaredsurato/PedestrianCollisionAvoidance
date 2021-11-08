@@ -109,6 +109,8 @@ function updateCar() {
     }
 }
 
+
+
 // TODO UpdatePedestrian function that keeps pedestrian between walls
 function UpdatePedestrian() {
     drawPedestrian();
