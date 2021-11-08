@@ -96,24 +96,30 @@ function drawPedestrian() {
 }
 
 // TODO UpdateCar function that keeps car between walls
+function updateCar() {
+    drawCar();
+    car.x += car.speed;
+    if(car.x + car.width > canvas.width || car.x < 0) {
+        car.x = 0;
+    }
+}
 
 // TODO UpdatePedestrian function that keeps pedestrian between walls
-
+function UpdatePedestrian() {
+    drawPedestrian();
+    pedestrian.y -= pedestrian.speed;
+    if(pedestrian.y < canvas.height / 2 - 100){
+        pedestrian.y = canvas.height / 2 + 100
+    }
+}
 // TODO draw scenery like road, sidewalk and grass
 
 // TODO add images for each item (car, pedestrian)
 
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
-    drawCar();
-    drawPedestrian();
-    car.x += car.speed;
-    pedestrian.y -= pedestrian.speed;
-
-    //detect side walls
-    if(car.x + car.width > canvas.width || car.x < 0) {
-        car.x = 0;
-    }
+    updateCar();
+    UpdatePedestrian();
 
     requestAnimationFrame(update);
 }
