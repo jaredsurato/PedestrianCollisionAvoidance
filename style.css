@@ -24,3 +24,9 @@ body {
 #car, #pedestrian, #road {
     display: none;
 }
+
+hr {
+  height: 1px;
+  width: 75%;
+  background-color: white;
+}

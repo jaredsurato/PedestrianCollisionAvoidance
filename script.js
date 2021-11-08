@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext('2d')
 
@@ -70,9 +72,9 @@ canvas.height = window.innerHeight;
 const roadImage = document.getElementById("road");
 
 const car = {
-    x:100,
+    x:80,
     y:canvas.height/2,
-    speed:4,
+    speed:0,
     width:200,
     height:100,
     image: document.getElementById("car")
@@ -81,7 +83,7 @@ const car = {
 const pedestrian = {
     x: canvas.width - 50,
     y: canvas.height / 2 + 100,
-    speed:1,
+    speed:0,
     size: 25,
     image: document.getElementById("pedestrian")
 }
@@ -129,8 +131,35 @@ function update() {
     ctx.drawImage(roadImage, -10, canvas.height/2-100, canvas.width+25, 200)
     updateCar();
     UpdatePedestrian();
-    
+
     requestAnimationFrame(update);
 }
 
-update();
+
+// RESET STATES
+function pedestrian_reset() {
+  pedestrian.x = canvas.width - 50;
+  pedestrian.y = canvas.height / 2 + 100;
+  pedestrian.speed = 0;
+}
+
+function car_reset() {
+  car.x = 80;
+  car.y = canvas.height/2;
+  car.speed = 0;
+}
+
+// MAIN FUNCTION
+$(document).ready(function() {
+  $("#scenario_1").click(function() {
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#reset").click(function() {
+    car_reset();
+    pedestrian_reset();
+  });
+
+  update();
+});
