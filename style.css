@@ -15,12 +15,12 @@ body {
 }
 
 #canvas {
-    background: #f0f0f0;
+    background: white;
     border-radius: 5px;
     width:80%;
     height: auto;
 }
 
-#car, #pedestrian {
+#car, #pedestrian, #road {
     display: none;
 }

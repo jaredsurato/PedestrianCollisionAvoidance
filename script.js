@@ -67,6 +67,7 @@ canvas.height = window.innerHeight;
 // //draw right eye
 // ctx.arc(centerX + 160, centerY - 160, 40, 0, Math.PI*2)
 // ctx.stroke();
+const roadImage = document.getElementById("road");
 
 const car = {
     x:100,
@@ -125,9 +126,10 @@ function UpdatePedestrian() {
 
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
+    ctx.drawImage(roadImage, -10, canvas.height/2-100, canvas.width+25, 200)
     updateCar();
     UpdatePedestrian();
-
+    
     requestAnimationFrame(update);
 }
 
