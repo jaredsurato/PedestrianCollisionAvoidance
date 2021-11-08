@@ -116,6 +116,8 @@ function UpdatePedestrian() {
 
 // TODO add images for each item (car, pedestrian)
 
+// TODO add function so car can detect collision and slow down
+
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     updateCar();
