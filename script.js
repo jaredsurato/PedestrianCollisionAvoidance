@@ -69,38 +69,42 @@ canvas.height = window.innerHeight;
 // ctx.stroke();
 
 const car = {
-    x:0,
-    y:canvas.width/2,
+    x:100,
+    y:canvas.height/2,
     speed:4,
-    width:50,
-    height:25,
+    width:200,
+    height:100,
+    image: document.getElementById("car")
 }
 
 const pedestrian = {
     x: canvas.width - 50,
     y: canvas.height / 2 + 100,
     speed:1,
-    size: 6.25
+    size: 25,
+    image: document.getElementById("pedestrian")
 }
 
 function drawCar() {
-    ctx.fillRect(car.x, car.y, car.width, car.height)
-    ctx.fillStyle = "purple"
-    ctx.fill();
+    // ctx.fillRect(car.x, car.y, car.width, car.height)
+    // ctx.fillStyle = "purple"
+    // ctx.fill();
+    ctx.drawImage(car.image, car.x, car.y, car.width, car.height);
 }
 
 function drawPedestrian() {
-    ctx.beginPath();
-    ctx.arc(pedestrian.x, pedestrian.y, pedestrian.size, 0, Math.PI*2)
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.arc(pedestrian.x, pedestrian.y, pedestrian.size, 0, Math.PI*2)
+    // ctx.fill();
+    ctx.drawImage(pedestrian.image, pedestrian.x, pedestrian.y, pedestrian.size, pedestrian.size);
 }
 
 // TODO UpdateCar function that keeps car between walls
 function updateCar() {
     drawCar();
     car.x += car.speed;
-    if(car.x + car.width > canvas.width || car.x < 0) {
-        car.x = 0;
+    if(car.x > canvas.width) {
+        car.x = car.width * -1;
     }
 }
 
@@ -109,14 +113,15 @@ function UpdatePedestrian() {
     drawPedestrian();
     pedestrian.y -= pedestrian.speed;
     if(pedestrian.y < canvas.height / 2 - 100){
-        pedestrian.y = canvas.height / 2 + 100
+        pedestrian.y = canvas.height / 2 + 100;
     }
 }
-// TODO draw scenery like road, sidewalk and grass
 
-// TODO add images for each item (car, pedestrian)
+// TODO draw scenery like road, sidewalk and grass (background)
 
 // TODO add function so car can detect collision and slow down
+
+// TODO add interaction for starting/changing scenario
 
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
