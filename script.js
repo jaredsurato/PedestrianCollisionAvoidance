@@ -77,6 +77,8 @@ const car = {
     speed:0,
     width:200,
     height:100,
+    steadyStateSpeed:4,
+    reset:false,
     image: document.getElementById("car")
 }
 
@@ -85,6 +87,7 @@ const pedestrian = {
     y: canvas.height / 2 + 100,
     speed:0,
     size: 25,
+    finalPosition: canvas.height/2 - 100,
     image: document.getElementById("pedestrian")
 }
 
@@ -115,23 +118,38 @@ function updateCar() {
 function UpdatePedestrian() {
     drawPedestrian();
     pedestrian.y -= pedestrian.speed;
-    if(pedestrian.y < canvas.height / 2 - 100){
-        pedestrian.y = canvas.height / 2 + 100;
+    if(pedestrian.y < pedestrian.finalPosition){
+        pedestrian.speed = 0;
     }
 }
 
-// TODO draw scenery like road, sidewalk and grass (background)
-
 // TODO add function so car can detect collision and slow down
+function DetectPedestrian() {
+  if (((car.y + car.height > pedestrian.y) && (pedestrian.y > car.y)) 
+    && (pedestrian.x > car.x) &&(pedestrian.x - (car.x + car.width) < 150)){
+    car.speed *= 0.96;
+  }
+  else {
+    
+    if (car.reset) {
+      car.speed = 0;
+    }
+    else {
+      if (car.speed < car.steadyStateSpeed){
+        car.speed *= 1.05; 
+      }
+    }
+    
+  }
+  }
 
-// TODO add interaction for starting/changing scenario
 
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     ctx.drawImage(roadImage, -10, canvas.height/2-100, canvas.width+25, 200)
+    DetectPedestrian();
     updateCar();
     UpdatePedestrian();
-
     requestAnimationFrame(update);
 }
 
@@ -139,19 +157,21 @@ function update() {
 // RESET STATES
 function pedestrian_reset() {
   pedestrian.x = canvas.width - 50;
-  pedestrian.y = canvas.height / 2 + 100;
+  pedestrian.y = canvas.height / 2 + 110;
   pedestrian.speed = 0;
 }
 
 function car_reset() {
   car.x = 80;
   car.y = canvas.height/2;
-  car.speed = 0;
+  car.reset = true;
 }
 
 // MAIN FUNCTION
 $(document).ready(function() {
   $("#scenario_1").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 35
+    car.reset = false;
     car.speed = 4;
     pedestrian.speed = 1;
   });
