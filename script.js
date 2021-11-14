@@ -84,7 +84,7 @@ const car = {
 
 const pedestrian = {
     x: canvas.width - 50,
-    y: canvas.height / 2 + 100,
+    y: canvas.height / 2 + 200,
     speed:0,
     size: 25,
     finalPosition: canvas.height/2 - 100,
@@ -157,7 +157,7 @@ function update() {
 // RESET STATES
 function pedestrian_reset() {
   pedestrian.x = canvas.width - 50;
-  pedestrian.y = canvas.height / 2 + 110;
+  pedestrian.y = canvas.height / 2 + 200;
   pedestrian.speed = 0;
 }
 
@@ -171,6 +171,27 @@ function car_reset() {
 $(document).ready(function() {
   $("#scenario_1").click(function() {
     pedestrian.finalPosition = canvas.height/2 + 35
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_2").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 101
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_3").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 135
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_4").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
     car.reset = false;
     car.speed = 4;
     pedestrian.speed = 1;
