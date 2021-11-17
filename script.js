@@ -69,7 +69,30 @@ canvas.height = window.innerHeight;
 // //draw right eye
 // ctx.arc(centerX + 160, centerY - 160, 40, 0, Math.PI*2)
 // ctx.stroke();
+
 const roadImage = document.getElementById("road");
+
+const timer = {
+  time:0,
+  startTime:0,
+  reset: function(){
+    time = 0;
+  },
+  start: function(){
+    time.startTime = Date.now();
+    var elapsedTime = Date.now() - startTime;
+    time = (elapsedTime / 1000).toFixed(3);
+  },
+  draw: function(){
+    //Attempting to draw timer on canvas
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Time of Scenario: " + timer.time, 20, 30);
+  },
+  update: function(){
+    timer.draw();
+  }
+}
 
 const car = {
     x:80,
@@ -125,31 +148,43 @@ function UpdatePedestrian() {
 
 // TODO add function so car can detect collision and slow down
 function DetectPedestrian() {
-  if (((car.y + car.height > pedestrian.y) && (pedestrian.y > car.y)) 
+  if (((car.y + car.height > pedestrian.y) && (pedestrian.y > car.y))
     && (pedestrian.x > car.x) &&(pedestrian.x - (car.x + car.width) < 150)){
     car.speed *= 0.96;
   }
   else {
-    
+
     if (car.reset) {
       car.speed = 0;
     }
     else {
       if (car.speed < car.steadyStateSpeed){
-        car.speed *= 1.05; 
+        car.speed *= 1.05;
       }
     }
-    
+
   }
-  }
+}
+
 
 
 function update() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     ctx.drawImage(roadImage, -10, canvas.height/2-100, canvas.width+25, 200)
+
+    /*
+    //Attempting to draw timer on canvas
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+
+    var elapsedTime = Date.now() - startTime;
+    ctx.fillText("Time of Scenario: " + (elapsedTime / 1000).toFixed(3), 20, 30);
+    */
+
     DetectPedestrian();
     updateCar();
     UpdatePedestrian();
+    timer.update();
     requestAnimationFrame(update);
 }
 
@@ -169,7 +204,8 @@ function car_reset() {
 
 // MAIN FUNCTION
 $(document).ready(function() {
-  $("#scenario_1").click(function() {
+
+  $("button#scenario_1").click(function() {
     pedestrian.finalPosition = canvas.height/2 + 35
     car.reset = false;
     car.speed = 4;
@@ -197,6 +233,33 @@ $(document).ready(function() {
     pedestrian.speed = 1;
   });
 
+  $("button.scenario").click(function(){
+    timer.start();
+    timer.time = 10;
+  });
+
+/*
+  $("#scenario_5").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_6").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_7").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+*/
   $("#reset").click(function() {
     car_reset();
     pedestrian_reset();
