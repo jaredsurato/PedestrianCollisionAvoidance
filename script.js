@@ -74,14 +74,15 @@ const roadImage = document.getElementById("road");
 
 const timer = {
   time:0,
-  startTime:0,
+  startTimer: false,
+  temp: 0,
   reset: function(){
-    time = 0;
+    timer.time = 0;
+    timer.startTimer = false;
   },
-  start: function(){
-    time.startTime = Date.now();
-    var elapsedTime = Date.now() - startTime;
-    time = (elapsedTime / 1000).toFixed(3);
+  start: function(t){
+    timer.startTimer = true;
+    timer.temp = Date.now();
   },
   draw: function(){
     //Attempting to draw timer on canvas
@@ -91,6 +92,15 @@ const timer = {
   },
   update: function(){
     timer.draw();
+    if (timer.startTimer == true)
+    {
+      var elapsedTime = Date.now() - timer.temp;
+      timer.time = (elapsedTime / 1000).toFixed(3);
+    }
+    else
+    {
+      timer.time = 0;
+    }
   }
 }
 
@@ -162,13 +172,15 @@ function DetectPedestrian() {
         car.speed *= 1.05;
       }
     }
-
   }
 }
 
 
 
 function update() {
+
+    starTime = Date.now();
+
     ctx.clearRect(0,0, canvas.width, canvas.height)
     ctx.drawImage(roadImage, -10, canvas.height/2-100, canvas.width+25, 200)
 
@@ -235,7 +247,6 @@ $(document).ready(function() {
 
   $("button.scenario").click(function(){
     timer.start();
-    timer.time = 10;
   });
 
 /*
@@ -263,6 +274,7 @@ $(document).ready(function() {
   $("#reset").click(function() {
     car_reset();
     pedestrian_reset();
+    timer.reset();
   });
 
   update();
