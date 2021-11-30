@@ -214,10 +214,17 @@ function car_reset() {
   car.reset = true;
 }
 
+function total_reset() {
+  car_reset();
+  pedestrian_reset();
+  timer.reset();
+}
+
 // MAIN FUNCTION
 $(document).ready(function() {
 
   $("button#scenario_1").click(function() {
+    total_reset();
     pedestrian.finalPosition = canvas.height/2 + 35
     car.reset = false;
     car.speed = 4;
@@ -225,6 +232,7 @@ $(document).ready(function() {
   });
 
   $("#scenario_2").click(function() {
+    total_reset();
     pedestrian.finalPosition = canvas.height/2 + 101
     car.reset = false;
     car.speed = 4;
@@ -232,6 +240,7 @@ $(document).ready(function() {
   });
 
   $("#scenario_3").click(function() {
+    total_reset();
     pedestrian.finalPosition = canvas.height/2 + 135
     car.reset = false;
     car.speed = 4;
@@ -239,22 +248,25 @@ $(document).ready(function() {
   });
 
   $("#scenario_4").click(function() {
+    total_reset();
     pedestrian.finalPosition = canvas.height/2 + 170
     car.reset = false;
     car.speed = 4;
     pedestrian.speed = 1;
   });
 
-  $("button.scenario").click(function(){
-    timer.start();
-  });
-
-/*
   $("#scenario_5").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
-    car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    total_reset();
+    pedestrian.y = car.y + 35;
+    console.log(timer.time)
+    while (timer.time > 1.5) {
+
+      pedestrian.finalPosition = canvas.height/2 + 170
+      car.reset = false;
+      car.speed = 4;
+      pedestrian.speed = 1;
+    }
+    
   });
 
   $("#scenario_6").click(function() {
@@ -270,7 +282,32 @@ $(document).ready(function() {
     car.speed = 4;
     pedestrian.speed = 1;
   });
-*/
+
+  $("#scenario_8").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_9").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("#scenario_10").click(function() {
+    pedestrian.finalPosition = canvas.height/2 + 170
+    car.reset = false;
+    car.speed = 4;
+    pedestrian.speed = 1;
+  });
+
+  $("button.scenario").click(function(){
+    timer.start();
+  });
+
   $("#reset").click(function() {
     car_reset();
     pedestrian_reset();
