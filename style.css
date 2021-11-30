@@ -17,11 +17,11 @@ body {
 #canvas {
     background-image: url("grass.jpg");
     border-radius: 5px;
-    width:80%;
+    width: 80%;
     height: auto;
 }
 
-#car, #pedestrian, #road {
+#car, #pedestrian, #road, #alert {
     display: none;
 }
 

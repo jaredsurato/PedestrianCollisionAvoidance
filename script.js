@@ -71,6 +71,7 @@ canvas.height = window.innerHeight;
 // ctx.stroke();
 
 const roadImage = document.getElementById("road");
+const alertImage = document.getElementById("alert")
 
 const timer = {
   time:0,
@@ -101,25 +102,32 @@ const timer = {
     {
       timer.time = 0;
     }
+  },
+  check: function(t){
+    if (timer.time > t)
+    {
+      return true;
+    }
+    return false;
   }
 }
 
 const car = {
     x:80,
-    y:canvas.height/2,
+    y:canvas.height/2 + 15,
     speed:0,
-    width:200,
-    height:100,
+    width:180,
+    height:90,
     steadyStateSpeed:4,
     reset:false,
     image: document.getElementById("car")
 }
 
 const pedestrian = {
-    x: canvas.width - 50,
-    y: canvas.height / 2 + 200,
+    x: car.x + car.width + 1575,
+    y: canvas.height / 2 + 350,
     speed:0,
-    size: 25,
+    size: 22.5,
     finalPosition: canvas.height/2 - 100,
     image: document.getElementById("pedestrian")
 }
@@ -156,20 +164,38 @@ function UpdatePedestrian() {
     }
 }
 
+function playSound() {
+  count = 0;
+
+  while (count == 0){
+    var audio3 = new Audio("alarm.wav")
+    audio3.play();
+    count += 1;
+  }
+}
+
+count = 0;
 // TODO add function so car can detect collision and slow down
 function DetectPedestrian() {
-  if (((car.y + car.height > pedestrian.y) && (pedestrian.y > car.y))
-    && (pedestrian.x > car.x) &&(pedestrian.x - (car.x + car.width) < 150)){
-    car.speed *= 0.96;
+  if (((car.y + car.height + 24 > pedestrian.y) && (pedestrian.y > car.y - 24))
+    && (pedestrian.x > car.x) &&(pedestrian.x - (car.x + car.width) < 250)){
+    car.speed *= 0.975;
+    ctx.drawImage(alertImage, 80, canvas.height/2+200, 200, 190)
+
+    while (count == 0){
+      var audio3 = new Audio("alarm.wav")
+      audio3.play();
+      count += 1;
+    }
   }
   else {
-
+    count = 0;
     if (car.reset) {
       car.speed = 0;
     }
     else {
       if (car.speed < car.steadyStateSpeed){
-        car.speed *= 1.05;
+        car.speed *= 1.02;
       }
     }
   }
@@ -203,14 +229,14 @@ function update() {
 
 // RESET STATES
 function pedestrian_reset() {
-  pedestrian.x = canvas.width - 50;
-  pedestrian.y = canvas.height / 2 + 200;
+  pedestrian.x = car.x + car.width + 1575;
+  pedestrian.y = canvas.height / 2 + 350;
   pedestrian.speed = 0;
 }
 
 function car_reset() {
   car.x = 80;
-  car.y = canvas.height/2;
+  car.y = canvas.height/2 + 15;
   car.reset = true;
 }
 
@@ -225,83 +251,96 @@ $(document).ready(function() {
 
   $("button#scenario_1").click(function() {
     total_reset();
+    console.log(pedestrian.x)
     pedestrian.finalPosition = canvas.height/2 + 35
     car.reset = false;
-    car.speed = 4;
+    car.speed = 5;
     pedestrian.speed = 1;
   });
 
   $("#scenario_2").click(function() {
     total_reset();
-    pedestrian.finalPosition = canvas.height/2 + 101
+    pedestrian.finalPosition = canvas.height/2 + 130
     car.reset = false;
-    car.speed = 4;
+    car.speed = 5;
     pedestrian.speed = 1;
   });
 
   $("#scenario_3").click(function() {
     total_reset();
-    pedestrian.finalPosition = canvas.height/2 + 135
+    pedestrian.finalPosition = canvas.height/2 + 170
     car.reset = false;
-    car.speed = 4;
+    car.speed = 5;
     pedestrian.speed = 1;
   });
 
   $("#scenario_4").click(function() {
     total_reset();
-    pedestrian.finalPosition = canvas.height/2 + 170
+    pedestrian.finalPosition = canvas.height/2 + 260
     car.reset = false;
-    car.speed = 4;
+    car.speed = 5;
     pedestrian.speed = 1;
   });
 
   $("#scenario_5").click(function() {
     total_reset();
     pedestrian.y = car.y + 35;
+    car.reset = false;
+    car.speed = 5;
     console.log(timer.time)
-    while (timer.time > 1.5) {
-
-      pedestrian.finalPosition = canvas.height/2 + 170
-      car.reset = false;
-      car.speed = 4;
+    setTimeout(() => {
+      pedestrian.finalPosition = canvas.height/2 - 170
       pedestrian.speed = 1;
-    }
+    }, 1500);
     
   });
 
   $("#scenario_6").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
+    total_reset();
+    pedestrian.y = car.y + 125;
     car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    car.speed = 5;
+    console.log(timer.time)
+    setTimeout(() => {
+      pedestrian.finalPosition = canvas.height/2 - 170
+      pedestrian.speed = 1;
+    }, 1800);
   });
 
   $("#scenario_7").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
+    total_reset();
+    pedestrian.y = car.y + 215;
     car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    car.speed = 5;
+    console.log(timer.time)
+    setTimeout(() => {
+      pedestrian.finalPosition = canvas.height/2 - 170
+      pedestrian.speed = 1;
+    }, 1100);
   });
 
   $("#scenario_8").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
+    total_reset();
+    pedestrian.y = canvas.height/2 + 35;
     car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    car.speed = 5;
+    pedestrian.speed = 0;
   });
 
   $("#scenario_9").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
+    total_reset();
+    pedestrian.y = canvas.height/2 + 130
     car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    car.speed = 5;
+    pedestrian.speed = 0;
   });
 
   $("#scenario_10").click(function() {
-    pedestrian.finalPosition = canvas.height/2 + 170
+    total_reset();
+    pedestrian.y = canvas.height/2 + 215
     car.reset = false;
-    car.speed = 4;
-    pedestrian.speed = 1;
+    car.speed = 5;
+    pedestrian.speed = 0;
   });
 
   $("button.scenario").click(function(){
