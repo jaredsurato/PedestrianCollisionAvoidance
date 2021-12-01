@@ -199,12 +199,15 @@ function DetectPedestrian() {
       }
     }
   }
+  if (((car.y + car.height + 46 > pedestrian.y) && (pedestrian.y > car.y - 46))
+  && (pedestrian.x > car.x) &&(pedestrian.x - (car.x + car.width) < 300)){
+    ctx.drawImage(alertImage, 80, canvas.height/2+200, 200, 190)
+  }
 }
 
 
 
 function update() {
-
     starTime = Date.now();
 
     ctx.clearRect(0,0, canvas.width, canvas.height)
