@@ -168,7 +168,7 @@ function playSound() {
   count = 0;
 
   while (count == 0){
-    var audio3 = new Audio("alarm.wav")
+    var audio3 = new Audio("alarm.mp3")
     audio3.play();
     count += 1;
   }
