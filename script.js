@@ -164,15 +164,6 @@ function UpdatePedestrian() {
     }
 }
 
-function playSound() {
-  count = 0;
-
-  while (count == 0){
-    var audio3 = new Audio("alarm.mp3")
-    audio3.play();
-    count += 1;
-  }
-}
 
 count = 0;
 // TODO add function so car can detect collision and slow down
@@ -183,7 +174,7 @@ function DetectPedestrian() {
     ctx.drawImage(alertImage, 80, canvas.height/2+200, 200, 190)
 
     while (count == 0){
-      var audio3 = new Audio("alarm.wav")
+      var audio3 = new Audio("alarm.mp3")
       audio3.play();
       count += 1;
     }
